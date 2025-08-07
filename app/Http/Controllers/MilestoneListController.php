@@ -15,7 +15,8 @@ class MilestoneListController extends Controller
     }
     public function get($goal_id)
     {
-        return view("milestoneList", ["goal" => $this::getGoal($goal_id)]);
+        $user = UserController::loadJson()[0];
+        return view("milestoneList", ["goal" => $this::getGoal($goal_id), "username" => $user["name"]]);
     }
     private static function getGoal($goal_id)
     {
