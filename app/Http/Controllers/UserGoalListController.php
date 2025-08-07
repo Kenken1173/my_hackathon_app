@@ -16,7 +16,7 @@ class UserGoalListController extends Controller
     public function index()
     {
         $goals = $this::loadJson();
-        $user = UserController::loadJson()[0];
+        $user = UserController::loadJson()[2];
         $result = array();
         foreach ($goals as $goal) {
             if ($goal["userId"] == $user["id"]) {
