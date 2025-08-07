@@ -8,15 +8,15 @@ use Illuminate\View\Component;
 
 class Layout extends Component
 {
-    public $name;
+    public $username;
     public $title;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($name = null, $title = null)
+    public function __construct($username = null, $title = null)
     {
-        $this->name = $name;
+        $this->username = $username;
         $this->title = $title;
     }
 
