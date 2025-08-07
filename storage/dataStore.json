@@ -1,0 +1,52 @@
+{
+    "users": [
+        {
+            "id": "user_001",
+            "name": "佐藤太郎"
+        }
+    ],
+    "goals": [
+        {
+            "id": "goal_001",
+            "userId": "user_001",
+            "name": "TOEICで800点取る",
+            "milestones": [
+                {
+                    "name": "単語帳を1冊終わらせる",
+                    "description": "1日30単語、合計1500語を暗記",
+                    "startDate": "2025-08-01",
+                    "endDate": "2025-08-31",
+                    "achieved": true
+                },
+                {
+                    "name": "模試を5回解く",
+                    "description": "週1回の模試と復習",
+                    "startDate": "2025-08-01",
+                    "endDate": "2025-09-30",
+                    "achieved": false
+                }
+            ]
+        },
+        {
+            "id": "goal_002",
+            "userId": "user_001",
+            "name": "フルマラソン完走",
+            "milestones": [
+                {
+                    "name": "10kmを週3回走る",
+                    "description": "継続的なトレーニングを習慣化する",
+                    "startDate": "2025-08-10",
+                    "endDate": "2025-09-10",
+                    "achieved": false
+                },
+                {
+                    "name": "30km走に挑戦",
+                    "description": "大会2週間前にロングラン",
+                    "startDate": "2025-09-15",
+                    "endDate": "2025-09-20",
+                    "achieved": false
+                }
+            ]
+        }
+    ]
+}
