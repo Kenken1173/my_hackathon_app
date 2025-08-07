@@ -8,7 +8,7 @@ use PhpParser\Node\NullableType;
 
 
 // ユーザーのゴールの一覧画面
-class UserListGoalViewController extends Controller
+class UserGoalListController extends Controller
 {
     private static function loadJson() {
         return json_decode(file_get_contents(storage_path("dataStore.json")), true)["goals"];
@@ -23,6 +23,6 @@ class UserListGoalViewController extends Controller
                 array_push($result, $goal);
             }
         }
-        return view("index", ['goals' => $result]);
+        return view("welcome", ['goals' => $result, "username" => $user["name"]]);
     }
 }
