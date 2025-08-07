@@ -3,6 +3,22 @@
         {
             "id": "user_001",
             "name": "佐藤太郎"
+        },
+        {
+            "id": "user_002",
+            "name": "山田花子"
+        },
+        {
+            "id": "user_003",
+            "name": "田中一郎"
+        },
+        {
+            "id": "user_004",
+            "name": "鈴木由美"
+        },
+        {
+            "id": "user_005",
+            "name": "高橋健太"
         }
     ],
     "goals": [
@@ -44,6 +60,76 @@
                     "description": "大会2週間前にロングラン",
                     "startDate": "2025-09-15",
                     "endDate": "2025-09-20",
+                    "achieved": false
+                }
+            ]
+        },
+        {
+            "id": "goal_003",
+            "userId": "user_002",
+            "name": "資格試験に合格",
+            "milestones": [
+                {
+                    "name": "テキストを3周する",
+                    "description": "毎日2時間勉強する",
+                    "startDate": "2025-09-01",
+                    "endDate": "2025-11-30",
+                    "achieved": false
+                },
+                {
+                    "name": "問題集を2冊解く",
+                    "description": "間違えた問題をノートにまとめる",
+                    "startDate": "2025-10-01",
+                    "endDate": "2025-12-15",
+                    "achieved": false
+                },
+                {
+                    "name": "模擬試験で合格点を取る",
+                    "description": "本番形式で時間配分を練習",
+                    "startDate": "2025-12-20",
+                    "endDate": "2025-12-25",
+                    "achieved": false
+                }
+            ]
+        },
+        {
+            "id": "goal_004",
+            "userId": "user_003",
+            "name": "転職して年収100万円アップ",
+            "milestones": [
+                {
+                    "name": "職務経歴書を作成する",
+                    "description": "実績を具体的に記述する",
+                    "startDate": "2025-08-05",
+                    "endDate": "2025-08-15",
+                    "achieved": true
+                },
+                {
+                    "name": "ポートフォリオを充実させる",
+                    "description": "新規プロジェクトを3つ追加する",
+                    "startDate": "2025-08-10",
+                    "endDate": "2025-09-30",
+                    "achieved": false
+                },
+                {
+                    "name": "エージェントに複数登録する",
+                    "description": "毎週1回はキャリア面談を行う",
+                    "startDate": "2025-08-10",
+                    "endDate": "2025-09-10",
+                    "achieved": true
+                },
+                {
+                    "name": "面接対策を行う",
+                    "description": "想定質問と回答を準備する",
+                    "startDate": "2025-09-01",
+                    "endDate": "2025-10-31",
+                    "achieved": false
+                },
+                {
+                    "name": "企業へ応募開始",
+                    "description": "月に5社以上のペースで応募",
+                    "startDate": "2025-10-01",
+                    "endDate": "2025-12-31",
                     "achieved": false
                 }
             ]
