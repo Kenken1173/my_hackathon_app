@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Goal;
 use App\Models\Milestone;
 use Illuminate\Http\Request;
@@ -25,10 +26,12 @@ class UserGoalListController extends Controller
     {
         $goals_with_milestone = array();
         // $user = UserController::loadJson()[2];
-        $goals = Goal::where("user_id", 2)->get();
+        $user = User::find(4); // TODO 定数ではなくする
+        $goals = Goal::where("user_id", $user->id)->get();
         foreach ($goals as $goal)
         {
             $milestones = Milestone::where("goal_id", $goal->id)->get();
+            // DD($milestones);
             $full_count = count($milestones);
             $achieved_count = 0;
             foreach ($milestones as $milestone) {
@@ -46,7 +49,7 @@ class UserGoalListController extends Controller
         //     }
         // }
         // var_dump($goals);
-        return view("welcome", ['goals_with_milestone' => $goals_with_milestone, "username" => "dummy"]);
+        return view("welcome", ['goals_with_milestone' => $goals_with_milestone, "username" => $user->name]);
     }
     public function get($id)
     {

@@ -17,7 +17,7 @@ class GoalFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->numberBetween(0,3),
+            'user_id' => fake()->numberBetween(1,4),
             'name' => fake()->word()
         ];
     }

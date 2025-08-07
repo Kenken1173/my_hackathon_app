@@ -13,7 +13,7 @@ class GoalSeeder extends Seeder
      */
     public function run(): void
     {
-        \DB::table("goals")->delete();
+        \DB::table("goals")->truncate();
         Goal::factory(10)->create();
     }
 }

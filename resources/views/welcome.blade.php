@@ -10,7 +10,7 @@
                 <div class="text-3xl">🎯</div>
             </div>
 
-            {{-- <!-- 今日のサマリー -->
+            <!-- 今日のサマリー -->
             <div class="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-white/50">
                 <div class="flex items-center justify-between text-sm">
                     <span class="text-gray-600">今日のタスク</span>
@@ -19,11 +19,11 @@
                 <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
                     <div class="bg-primary-500 h-1.5 rounded-full" style="width: 75%"></div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
 
-    {{-- <!-- フィルター -->
+    <!-- フィルター -->
     <div class="flex items-center space-x-2 mb-6 overflow-x-auto">
         <button
             class="filter-btn active px-4 py-2 bg-primary-500 text-white text-sm font-semibold rounded-full whitespace-nowrap transition-colors"
@@ -45,7 +45,7 @@
             data-filter="overdue">
             期限切れ
         </button>
-    </div> --}}
+    </div>
 
     <!-- 目標リスト -->
     <div class="space-y-4" id="goalsList">
@@ -62,6 +62,7 @@
                         <div class="flex items-center mb-2">
                             <span class="category-badge category-study mr-2">学習</span>
                             <span class="text-xs text-gray-500">あと 28日 </span>
+                            {{-- <span class="text-xs text-gray-500">あと {{  }}日 </span> --}}
                         </div>
                         <h3 class="font-bold text-gray-900 text-lg mb-1 truncate">{{  $goal_with_count[0]->name }}</h3>
                         <!-- checkしてほしい -->
