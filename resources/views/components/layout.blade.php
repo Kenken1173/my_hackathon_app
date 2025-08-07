@@ -41,10 +41,9 @@
         </style>
     </head>
     <body>
+        <!-- 共通ヘッダー -->
         <header class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
-            
             <div class="px-4 py-4">
- 
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         @if(request()->path() !== '/')
@@ -61,8 +60,6 @@
                         </div>
                         <h1 class="text-lg font-bold text-gray-900">GoalMapper</h1>
                     </div>
-                    
-                    <!-- プロフィールボタン -->
                     <div class="flex justify-between items-center space-x-4">
                         <p>{{ $name ?? 'unknown' }}</p>
                         <button class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors">
@@ -76,8 +73,10 @@
         </header>
 
         <div class="p-4 max-w-md mx-auto pb-24">
-        {{ $slot }}
+            {{ $slot }}
         </div>
+
+        <!-- 共通ナビゲーションバー -->
         <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 shadow-sm">
             <div class="flex justify-around max-w-md mx-auto">
                 <button class="flex flex-col items-center py-2 px-3 text-primary-500">
