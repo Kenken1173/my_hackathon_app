@@ -133,6 +133,7 @@
         </div>
 
         <!-- 共通ナビゲーションバー -->
+        @if ($footerFlag ?? true)
         <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 shadow-sm z-50">
             <div class="flex justify-around max-w-md mx-auto">
                 <button class="flex flex-col items-center py-2 px-3 text-primary-500">
@@ -155,6 +156,7 @@
                 </button>
             </div>
         </nav>
+        @endif
 
         <!-- 共通ボトムシートオーバーレイ -->
         <div class="bottom-sheet-overlay" onclick="hideTaskDetail()"></div>

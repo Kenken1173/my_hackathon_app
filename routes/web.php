@@ -4,18 +4,15 @@
 use App\Http\Controllers\MileStoneTableController;
 use App\Http\Controllers\MilestonesWBSController;
 use App\Http\Controllers\MilestonesFlowController;
-
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\MilestoneListController;
 use App\Http\Controllers\UserGoalListController;
-
+use App\Http\Controllers\NewgoalController;
+use App\Http\Controllers\MilestoneListController;
 use App\Http\Controllers\LoginController;
 
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [LoginController::class, "get"]);
 Route::get('/', [UserGoalListController::class, "index"]); // ユーザーごとのゴール一覧画面
+Route::get('/new', [NewgoalController::class, "index"]); // ユーザーの新しい目標・現状・期日入力画面
 Route::get('/milestones-wbs/{goal_id}', [MilestonesWBSController::class, "get"]);
 Route::get('/milestones-flow/{goal_id}', [MilestonesFlowController::class, "get"]);
-
-
