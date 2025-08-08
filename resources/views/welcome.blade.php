@@ -13,7 +13,7 @@
             <!-- 今日のサマリー -->
             <div class="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-white/50">
                 <div class="flex items-center justify-between text-sm">
-                    <span class="text-gray-600">今日のマイルストーン</span>
+                    <span class="text-gray-600">今日のステップ</span>
                     <span class="font-semibold text-primary-600">{{ $today_achieved_count }}件完了</span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
@@ -56,7 +56,7 @@
         @foreach ($goals_with_milestones as $goal_with_milestone)
             <!-- アクティブな目標1 -->
             <div class="goal-card bg-white rounded-xl p-4 shadow-sm border border-gray-100" data-status="active"
-                onclick="window.location.href='milestone-flow.html'">
+                onclick="window.location.href='/milestones-wbs/{{ $goal_with_milestone["goal"]->id }}'">
                 <div class="flex items-start justify-between mb-3">
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center mb-2">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div class="text-xs text-gray-500">{{ $goal_with_milestone["full_count"] }}タスク中 {{ $goal_with_milestone["achieved_count"] }} 完了</div>
+                    <div class="text-xs text-gray-500">{{ $goal_with_milestone["achieved_count"] }}/{{ $goal_with_milestone["full_count"] }} 完了</div>
                 </div>
             </div>
         @endforeach
@@ -136,7 +136,7 @@
 
             <div class="flex items-center justify-between">
                 <div class="text-sm text-gray-600">
-                    <span class="font-semibold text-primary-600">全8タスク完了</span>
+                    <span class="font-semibold text-primary-600">全8ステップ完了</span>
                 </div>
                 <div class="text-xs text-gray-500">3ヶ月で達成</div>
             </div>
@@ -214,7 +214,7 @@
             </div>
             <div class="text-center">
                 <div class="text-2xl font-bold text-secondary-600 mb-1">{{$thisMonth_milestone_count}}</div>
-                <div class="text-xs text-gray-600">完了したマイルストーン</div>
+                <div class="text-xs text-gray-600">完了したステップ</div>
             </div>
             {{-- <div class="text-center">
                 <div class="text-2xl font-bold text-accent-600 mb-1">89</div>

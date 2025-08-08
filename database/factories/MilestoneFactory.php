@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,7 @@ class MilestoneFactory extends Factory
      */
     public function definition(): array
     {
-        $startDate = Carbon::today()->addDays(rand(0, 60));
+        $startDate = CarbonImmutable::today()->addDays(rand(0, 60));
         return [
             'name' => fake()->word(),
             'description' => fake()->paragraph(5),
