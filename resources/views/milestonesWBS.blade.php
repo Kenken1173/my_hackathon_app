@@ -229,10 +229,10 @@
         <div class="flex-shrink-0 bg-gray-50 border-r border-gray-200" style="width: 120px;">
             <!-- 月ヘッダー用の空白 -->
             <div class="h-12 border-b border-gray-200 px-3 py-2">
-                <div class="text-xs font-medium text-gray-600 text-center">タスク</div>
+                <div class="text-xs font-medium text-gray-600 text-center">ステップ</div>
             </div>
             
-            <!-- タスクリスト -->
+            <!-- マイルストーンリスト -->
             <div class="px-3 py-8">
                 @if(count($milestones) > 0)
                     @foreach($milestones as $index => $milestone)

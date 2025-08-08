@@ -122,6 +122,30 @@
             opacity: 1;
             transform: translateX(0);
         }
+
+        /* 説明テキストの3行制限＆フェード */
+        .task-desc {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            position: relative;
+            max-height: 4.5em; /* 3行分 */
+            line-height: 1.5em;
+        }
+        .task-desc.fade {
+            /* 3行制限 */
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            position: relative;
+            max-height: 4.5em;
+            line-height: 1.5em;
+            /* テキストグラデーションマスク */
+            -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+        }
     </style>
 
     <!-- 目標タイトル -->
@@ -202,7 +226,7 @@
                     
                     <div class="flex-1 min-w-0">
                         <h4 class="font-semibold text-gray-900 text-sm mb-1">{{ $milestone['name'] }}</h4>
-                        <p class="text-xs text-gray-600 mb-2">{{ $milestone['description'] ?? '説明なし' }}</p>
+                        <p class="task-desc text-xs text-gray-600 mb-2 fade">{{ $milestone['description'] ?? '説明なし' }}</p>
                         <p class="text-xs text-gray-500">期間: {{ $start->diffInDays($end) + 1 }}日 | 
                             @if($isAchieved)
                                 完了日: {{ $end->format('Y/m/d') }}
@@ -344,7 +368,7 @@
 
         // 通常のマイルストーン完了処理
         function completeMilestone(card, icon, checkboxElement) {
-            showNotification('タスク完了！お疲れさまでした', 'success');
+            showNotification('ステップ完了！お疲れさまでした', 'success');
             card.classList.add('completed');
             
             // アイコンとチェックボックスを緑色に
@@ -371,7 +395,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">🎉 おめでとうございます！</h3>
-                    <p class="text-gray-600 mb-6">これが最後のマイルストーンです！<br>完了すると目標達成となります。<br>本当に完了しますか？</p>
+                    <p class="text-gray-600 mb-6">これが最後のステップです！<br>完了すると目標達成となります。<br>本当に完了しますか？</p>
                     
                     <div class="flex space-x-3">
                         <button onclick="confirmFinalMilestone('${card.className}', '${icon.className}', '${checkboxElement.className}')" 
