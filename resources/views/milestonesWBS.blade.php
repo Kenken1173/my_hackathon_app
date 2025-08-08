@@ -1,8 +1,10 @@
 @php
     use Carbon\Carbon;
     
-    $startDate = $milestones->count() ? Carbon::parse($milestones->first()->startDate) : null;
-    $endDate = $milestones->count() ? Carbon::parse($milestones->last()->endDate) : null;
+    $id = $goal['id'];
+
+    $startDate = Carbon::parse($milestones->first()->startDate);
+    $endDate = Carbon::parse($milestones->last()->endDate);
     
     $totalDays = $startDate && $endDate ? $startDate->diffInDays($endDate) : 1;
     $today = Carbon::today();
