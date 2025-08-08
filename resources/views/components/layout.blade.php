@@ -144,23 +144,17 @@
         @if ($footerFlag ?? true)
         <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 shadow-sm z-50">
             <div class="flex justify-around max-w-md mx-auto">
-                <button class="flex flex-col items-center py-2 px-3 text-primary-500">
+                <button class="flex flex-col items-center py-2 px-3 {{ ($nav ?? 'home') == 'home' ? 'text-primary-500' : 'text-gray-400 hover:text-gray-600 transition-colors' }}" onclick="window.location.href='/'">
                     <svg class="w-5 h-5 mb-1" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
                     </svg>
                     <span class="text-xs font-semibold">マイ目標</span>
                 </button>
-                <button class="flex flex-col items-center py-2 px-3 text-gray-400 hover:text-gray-600 transition-colors" onclick="window.location.href='goal-input.html'">
+                <button class="flex flex-col items-center py-2 px-3 {{ ($nav ?? '') == 'new' ? 'text-primary-500' : 'text-gray-400 hover:text-gray-600 transition-colors' }}" onclick="window.location.href='/new'">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
                     <span class="text-xs">新しい目標</span>
-                </button>
-                <button class="flex flex-col items-center py-2 px-3 text-gray-400 hover:text-gray-600 transition-colors">
-                    <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                    </svg>
-                    <span class="text-xs">進捗</span>
                 </button>
             </div>
         </nav>

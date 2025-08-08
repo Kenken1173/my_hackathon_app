@@ -34,6 +34,7 @@ class MilestonesFlowController extends Controller
                         'achieved' => (bool) $m->achieved,
                     ];
                 })->toArray(),
+                'id' => $goal->id,
             ],
             'milestones' => $milestones,
             'username' => $user->name,
