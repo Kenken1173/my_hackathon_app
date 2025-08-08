@@ -184,43 +184,7 @@
                 color: #1E40AF;
             }
 
-            /* ボトムシート */
-            .bottom-sheet {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: white;
-                border-radius: 20px 20px 0 0;
-                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
-                transform: translateY(100%);
-                transition: transform 0.3s ease;
-                z-index: 1000;
-                max-height: 70vh;
-                overflow-y: auto;
-            }
 
-            .bottom-sheet.show {
-                transform: translateY(0);
-            }
-
-            .bottom-sheet-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.5);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-                z-index: 999;
-            }
-
-            .bottom-sheet-overlay.show {
-                opacity: 1;
-                visibility: visible;
-            }
 
             .tap-hint {
                 animation: bounce 2s infinite;
@@ -388,21 +352,7 @@
             <span class="text-gray-600">未着手</span>
         </div>
     </div>
-    <!-- ボトムシートオーバーレイ -->
-    <div class="bottom-sheet-overlay" onclick="hideTaskDetail()"></div>
 
-    <!-- ボトムシート -->
-    <div class="bottom-sheet" id="taskDetailSheet">
-        <div class="p-4">
-            <!-- ハンドル -->
-            <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4"></div>
-            
-            <!-- タスク詳細コンテンツ -->
-            <div id="taskDetailContent">
-                <!-- JavaScriptで動的に生成 -->
-            </div>
-        </div>
-    </div>
     </div>
     
     <script>
@@ -435,60 +385,6 @@
         
         // リサイズ時にも実行
         window.addEventListener('resize', syncRowHeights);
-        
-        // マイルストーンの詳細をボトムシートで表示
-        function showTaskDetail(name, description, startDate, endDate, achieved, period) {
-            const statusConfig = {
-                completed: { color: 'primary', text: '完了', bgColor: 'bg-primary-100', textColor: 'text-primary-800' },
-                'in-progress': { color: 'secondary', text: '進行中', bgColor: 'bg-secondary-100', textColor: 'text-secondary-800' },
-                pending: { color: 'gray', text: '未着手', bgColor: 'bg-gray-100', textColor: 'text-gray-600' }
-            };
-
-            const status = statusConfig[achieved];
-
-            const content = `
-                <div class="mb-4">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-bold text-gray-900">${name}</h3>
-                        <span class="text-xs ${status.bgColor} ${status.textColor} px-3 py-1 rounded-full font-medium">
-                            ${status.text}
-                        </span>
-                    </div>
-                    <p class="text-sm text-gray-600 mb-4">${description}</p>
-                </div>
-                
-                <div class="mb-6">
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-gray-500">期間</span>
-                        <span class="font-medium text-gray-700">${period}日間</span>
-                    </div>
-                    <div class="text-xs text-gray-500 mt-1">${startDate}～${endDate}</div>
-                </div>
-                
-                <button onclick="hideTaskDetail()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-4 rounded-xl transition-colors duration-200">
-                    閉じる
-                </button>
-            `;
-
-            document.getElementById('taskDetailContent').innerHTML = content;
-
-            document.querySelector('.bottom-sheet-overlay').classList.add('show');
-            document.getElementById('taskDetailSheet').classList.add('show');
-
-            if (navigator.vibrate) {
-                navigator.vibrate(50);
-            }
-            }
-
-            // マイルストーン詳細ボトムシートを閉じる
-            function hideTaskDetail() {
-            document.querySelector('.bottom-sheet-overlay').classList.remove('show');
-            document.getElementById('taskDetailSheet').classList.remove('show');
-            }
-
-            function updateScrollIndicator() {
-    // スクロールインジケーターの更新（現在は非表示のため空関数）
-}
 
 document.addEventListener('DOMContentLoaded', function() {
 

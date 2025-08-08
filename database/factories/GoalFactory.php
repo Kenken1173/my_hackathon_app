@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Goal>
+ */
+class GoalFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'user_id' => fake()->numberBetween(1,4),
+            "category" => ["勉強", "健康", "仕事", "その他"][rand(0, 3)],
+            'name' => fake()->word()
+        ];
+    }
+}
