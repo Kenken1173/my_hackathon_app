@@ -144,13 +144,13 @@
         @if ($footerFlag ?? true)
         <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 shadow-sm z-50">
             <div class="flex justify-around max-w-md mx-auto">
-                <button class="flex flex-col items-center py-2 px-3 {{ ($nav ?? 'home') == 'home' ? 'text-primary-500' : 'text-gray-400 hover:text-gray-600 transition-colors' }}">
+                <button class="flex flex-col items-center py-2 px-3 {{ ($nav ?? 'home') == 'home' ? 'text-primary-500' : 'text-gray-400 hover:text-gray-600 transition-colors' }}" onclick="window.location.href='/'">
                     <svg class="w-5 h-5 mb-1" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
                     </svg>
                     <span class="text-xs font-semibold">マイ目標</span>
                 </button>
-                <button class="flex flex-col items-center py-2 px-3 {{ ($nav ?? '') == 'new' ? 'text-primary-500' : 'text-gray-400 hover:text-gray-600 transition-colors' }}" onclick="window.location.href='goal-input.html'">
+                <button class="flex flex-col items-center py-2 px-3 {{ ($nav ?? '') == 'new' ? 'text-primary-500' : 'text-gray-400 hover:text-gray-600 transition-colors' }}" onclick="window.location.href='/new'">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
