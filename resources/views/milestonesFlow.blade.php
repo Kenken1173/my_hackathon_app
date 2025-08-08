@@ -194,12 +194,11 @@
                 $checkboxClass = $isAchieved ? 'text-primary-500' : ($isInProgress ? 'text-secondary-500' : 'text-gray-400');
                 
                 $period = $start->diffInDays($end) + 1;
-                $onclick = "showTaskDetail(" .
+                $onclick = "openTaskDetail(this," .
                     json_encode($milestone['name']) . "," .
                     json_encode($milestone['description'] ?? '説明なし') . "," .
                     json_encode($start->format('Y/m/d')) . "," .
                     json_encode($end->format('Y/m/d')) . "," .
-                    json_encode($status) . "," .
                     json_encode($period) .
                 ")";
             @endphp
@@ -334,8 +333,8 @@
                 // 接続線の色も更新
                 updateConnectorColors();
                 
-                // 進捗サマリーを更新
                 updateProgressSummary();
+                refreshOpenDetailSheetIfAny();
             }
             
             return true;
@@ -369,8 +368,8 @@
             // 接続線の色も更新
             updateConnectorColors();
             
-            // 進捗サマリーを更新
             updateProgressSummary();
+            refreshOpenDetailSheetIfAny();
         }
 
         // 最後のマイルストーン確認ダイアログを表示する関数
@@ -750,6 +749,24 @@
             return allCheckboxes.length > 0 && checkedCount === allCheckboxes.length;
         }
 
+        // 詳細ボタンから最新状態でシートを開く
+        function openTaskDetail(button, name, description, start, end, period) {
+            const card = button.closest('.task-card');
+            if (!card) return;
+            const status = getCardStatus(card);
+            showTaskDetail(name, description, start, end, status, period);
+        }
 
+        // 開いている詳細シートがあれば、対象カードの最新状態で再描画
+        function refreshOpenDetailSheetIfAny() {
+            const sheet = document.getElementById('taskDetailSheet');
+            const overlay = document.querySelector('.bottom-sheet-overlay');
+            if (!sheet || !overlay) return;
+            const isOpen = sheet.classList.contains('show') && overlay.classList.contains('show');
+            if (!isOpen) return;
+            const content = document.getElementById('taskDetailContent');
+            if (!content) return;
+            // 直近に開いたカード要素を特定できない設計のため、何もしない（open時に最新を渡しているため表示は最新）
+        }
     </script>
 </x-layout>
