@@ -56,7 +56,7 @@
         @foreach ($goals_with_milestones as $goal_with_milestone)
             <!-- アクティブな目標1 -->
             <div class="goal-card bg-white rounded-xl p-4 shadow-sm border border-gray-100" data-status="active"
-                onclick="window.location.href='/milestones-wbs/{{ $goal_with_milestone["goal"]->id }}'">
+                onclick="window.location.href='/milestones-flow/{{ $goal_with_milestone["goal"]->id }}'">
                 <div class="flex items-start justify-between mb-3">
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center mb-2">
@@ -65,8 +65,7 @@
                             {{-- <span class="text-xs text-gray-500">あと {{  }}日 </span> --}}
                         </div>
                         <h3 class="font-bold text-gray-900 text-lg mb-1 truncate">{{  $goal_with_milestone["goal"]->name }}</h3>
-                        <!-- checkしてほしい -->
-                        <p class="text-sm text-gray-600 mb-3">期限：{{ $goal_with_milestone["milestones"][0]->endDate }}</p>
+                        <p class="text-sm text-gray-600 mb-3">期限：{{ $goal_with_milestone["end_date"]->format('Y年m月d日') }}</p>
                         {{-- <p class="text-sm text-gray-600 mb-3">期限：{{ end($goal["milestones"])["endDate"] }}</p> --}}
                     </div>
                     <!-- 進捗リング -->
