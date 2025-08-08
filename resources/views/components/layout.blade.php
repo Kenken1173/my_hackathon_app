@@ -4,7 +4,7 @@
                 <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     
-        <title>{{ $title ?? 'GoalMapper' }}</title>
+        <title>{{ $title ?? 'FutureMapper' }}</title>
 
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -114,7 +114,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
-                        <h1 class="text-lg font-bold text-gray-900">GoalMapper</h1>
+                        <h1 class="text-lg font-bold text-gray-900">FutureMirror</h1>
                     </div>
                     <div class="flex justify-between items-center space-x-4">
                         <p>{{ $username ?? 'unknown' }}</p>

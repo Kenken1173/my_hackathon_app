@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PathMaker - ログイン</title>
+<title>FutureMirror - ログイン</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -61,7 +61,7 @@ body { font-family: 'Noto Sans JP', sans-serif; }
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
         </div>
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">PathMaker</h1>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">FutureMirror</h1>
         <p class="text-gray-600">目標達成への道筋を描く</p>
     </div>
 
