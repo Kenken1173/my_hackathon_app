@@ -1,23 +1,12 @@
 @php
     use Carbon\Carbon;
     
-    $milestones = $goal['milestones'] ?? [];
-    $startDate = null;
-    $endDate = null;
+    // DD($milestones);
+    // $startDate = null;
+    // $endDate = null;
+    $endDate = Carbon::parse($milestones->last()->endDate);
     
-    foreach ($milestones as $milestone) {
-        $start = Carbon::parse($milestone['startDate']);
-        $end = Carbon::parse($milestone['endDate']);
-        
-        if ($startDate === null || $start->lt($startDate)) {
-            $startDate = $start;
-        }
-        if ($endDate === null || $end->gt($endDate)) {
-            $endDate = $end;
-        }
-    }
-    
-    $completedCount = collect($milestones)->where('achieved', true)->count();
+    $completedCount = $milestones->where('achieved', true)->count();
     $totalCount = count($milestones);
     $progressPercentage = $totalCount > 0 ? round(($completedCount / $totalCount) * 100) : 0;
     
@@ -140,7 +129,7 @@
 
     <!-- 目標タイトル -->
     <div class="bg-white rounded-xl p-4 mb-4 shadow-sm border border-gray-100">
-        <h2 class="text-lg font-bold text-gray-900 mb-1">{{ $goal["name"] }}</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-1">{{ $goal->name }}</h2>
         @if($endDate)
         <p class="text-sm text-gray-500">期限{{ $endDate->format('Y年m月d日') }}</p>
         @endif

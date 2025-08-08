@@ -1,27 +1,15 @@
 @php
     use Carbon\Carbon;
     
-    $milestones = $goal['milestones'] ?? [];
-    $startDate = null;
-    $endDate = null;
-    
-    foreach ($milestones as $milestone) {
-        $start = Carbon::parse($milestone['startDate']);
-        $end = Carbon::parse($milestone['endDate']);
-        
-        if ($startDate === null || $start->lt($startDate)) {
-            $startDate = $start;
-        }
-        if ($endDate === null || $end->gt($endDate)) {
-            $endDate = $end;
-        }
-    }
+    $milestones;
+    $startDate = Carbon::parse($milestones->first()->startDate);
+    $endDate = Carbon::parse($milestones->last()->endDate);
     
     $totalDays = $startDate && $endDate ? $startDate->diffInDays($endDate) : 1;
     $today = Carbon::today();
     $todayPosition = $startDate ? max(0, min(100, ($startDate->diffInDays($today) / $totalDays) * 100)) : 50;
     
-    $completedCount = collect($milestones)->where('achieved', true)->count();
+    $completedCount = $milestones->where('achieved', true)->count();
     $totalCount = count($milestones);
     $progressPercentage = $totalCount > 0 ? round(($completedCount / $totalCount) * 100) : 0;
     
