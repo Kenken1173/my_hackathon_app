@@ -1,5 +1,26 @@
 <x-layout :username=$username title="test" :footerFlag="false">
 
+<style>
+.input-focus:focus {
+    border-color: #22C55E;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+.step-indicator {
+    transition: all 0.3s ease;
+}
+.step-indicator.active {
+    background: #22C55E;
+    color: white;
+}
+.step-indicator.completed {
+    background: #22C55E;
+    color: white;
+}
+.progress-bar {
+    transition: width 0.5s ease;
+}
+</style>
+
 <div class="p-4 max-w-md mx-auto">
     <!-- プログレス表示 -->
     <div class="mb-6">
@@ -154,18 +175,6 @@
                     <div class="p-4 bg-gray-50 rounded-lg">
                         <div class="text-sm font-medium text-gray-700 mb-1">達成期限</div>
                         <div id="confirmDeadline" class="text-gray-900"></div>
-                    </div>
-                </div>
-
-                <div class="bg-primary-50 border border-primary-200 rounded-lg p-4">
-                    <div class="flex">
-                        <svg class="w-5 h-5 text-primary-500 mt-0.5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        <div>
-                            <h4 class="text-sm font-semibold text-primary-800 mb-1">次のステップ</h4>
-                            <p class="text-xs text-primary-700">目標作成後、具体的なマイルストーンを設定できます。</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -361,8 +370,8 @@ function showError(message) {
 function showSuccessMessage() {
     // 成功メッセージ表示（実際の実装では適切なUIで表示）
     alert('目標が作成されました！マイルストーンの設定に進みます。');
-    // 実際の実装では次のページにリダイレクト
-    // window.location.href = 'milestone-flow.html';
+    // 次のページにリダイレクト
+    window.location.href = "/"
 }
 </script>
 </body>
