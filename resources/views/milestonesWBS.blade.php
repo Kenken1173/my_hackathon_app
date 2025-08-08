@@ -1,13 +1,16 @@
 @php
     use Carbon\Carbon;
     
+    $milestones;
+    if (!isset($startDate) || !isset($endDate)) {
+        $startDate = $milestones->isNotEmpty() ? Carbon::parse($milestones->min('startDate')) : null;
+        $endDate = $milestones->isNotEmpty() ? Carbon::parse($milestones->max('endDate')) : null;
+    }
     $id = $goal['id'];
-
-    $startDate = Carbon::parse($milestones->first()->startDate);
-    $endDate = Carbon::parse($milestones->last()->endDate);
     
-    $totalDays = $startDate && $endDate ? $startDate->diffInDays($endDate) : 1;
+    $totalDays = ($startDate && $endDate) ? max(1, $startDate->diffInDays($endDate) + 1) : 1;
     $today = Carbon::today();
+    // DD($startDate, $endDate, $totalDays);
     $todayPosition = $startDate ? max(0, min(100, ($startDate->diffInDays($today) / $totalDays) * 100)) : 50;
     
     $completedCount = $milestones->where('achieved', true)->count();
@@ -33,14 +36,21 @@
     }
     
     function calculateTimelinePosition($start, $end, $projectStart, $totalDays) {
-        if (!$projectStart || $totalDays <= 0) return ['left' => 0, 'width' => 0];
-        
-        $startDays = $projectStart->diffInDays(Carbon::parse($start));
-        $durationDays = Carbon::parse($start)->diffInDays(Carbon::parse($end)) + 1;
-        
-        $leftPercent = max(0, ($startDays / $totalDays) * 100);
-        $widthPercent = min(100 - $leftPercent, ($durationDays / $totalDays) * 100);
-        
+        if (!$start || !$end || !$projectStart || $totalDays <= 0) return ['left' => 0, 'width' => 0];
+        $projectStartC = $projectStart instanceof Carbon ? $projectStart : Carbon::parse($projectStart);
+        $startC = $start instanceof Carbon ? $start : Carbon::parse($start);
+        $endC = $end instanceof Carbon ? $end : Carbon::parse($end);
+        if ($endC->lt($startC)) { [$startC, $endC] = [$endC, $startC]; }
+        $projectEnd = $projectStartC->copy()->addDays(max(0, $totalDays - 1));
+        $visibleStart = $startC->lt($projectStartC) ? $projectStartC->copy() : $startC->copy();
+        $visibleEnd = $endC->gt($projectEnd) ? $projectEnd->copy() : $endC->copy();
+        if ($visibleEnd->lt($projectStartC) || $visibleStart->gt($projectEnd)) return ['left' => 0, 'width' => 0];
+        $startOffsetDays = $projectStartC->diffInDays($visibleStart, false);
+        $leftPercent = $startOffsetDays <= 0 ? 0 : ($startOffsetDays / max(1, $totalDays - 1)) * 100;
+        $leftPercent = max(0, min(100, $leftPercent));
+        $durationDays = $visibleStart->diffInDays($visibleEnd) + 1;
+        $widthPercent = ($durationDays / max(1, $totalDays)) * 100;
+        $widthPercent = max(0, min(100 - $leftPercent, $widthPercent));
         return ['left' => $leftPercent, 'width' => $widthPercent];
     }
     
@@ -265,10 +275,10 @@
                         $textColor = $isAchieved ? 'text-primary-700' : ($isInProgress ? 'text-secondary-700' : 'text-gray-500');
                         $period = $start->diffInDays($end) + 1;
                         $onclick = "showTaskDetail(" .
-                            json_encode($milestone['name']) . "," .
-                            json_encode($milestone['description'] ?? '') . "," .
-                            json_encode($milestone['startDate']) . "," .
-                            json_encode($milestone['endDate']) . "," .
+                            json_encode($milestone->name) . "," .
+                            json_encode($milestone->description ?? '') . "," .
+                            json_encode($milestone->startDate) . "," .
+                            json_encode($milestone->endDate) . "," .
                             json_encode($isAchieved ? 'completed' : ($isInProgress ? 'in-progress' : 'pending')) . "," .
                             json_encode($period) .
                         ")";
@@ -316,21 +326,32 @@
                 <!-- タイムラインバー -->
                 <div class="px-4 py-8">
                     @if(count($milestones) > 0)
-                        @foreach($milestones as $index => $milestone)
+                        @foreach($milestones as $index => $milestone2)
                         @php
-                            $isAchieved = $milestone['achieved'] ?? false;
-                            $start = Carbon::parse($milestone['startDate']);
-                            $end = Carbon::parse($milestone['endDate']);
+                            $position = calculateTimelinePosition($milestone2['startDate'], $milestone2['endDate'], $startDate, $totalDays);
+                            
+                            $isAchieved = $milestone2->achieved ?? false;
+                            $start = Carbon::parse($milestone2->startDate);
+                            $end = Carbon::parse($milestone2->endDate);
                             $isInProgress = !$isAchieved && $today->between($start, $end);
-                            
-                            $position = calculateTimelinePosition($milestone['startDate'], $milestone['endDate'], $startDate, $totalDays);
-                            
-                            $bgColor = $isAchieved ? 'bg-primary-500' : ($isInProgress ? 'bg-secondary-500' : 'bg-gray-300');
+
+                            $isFuture = $today->lt($start);
+                            $textColor = $isAchieved ? 'text-primary-700' : ($isInProgress ? 'text-secondary-700' : 'text-gray-500');
+                            $period = $start->diffInDays($end) + 1;
+                            $onclick2 = "showTaskDetail(" .
+                                json_encode($milestone2->name) . "," .
+                                json_encode($milestone2->description ?? '') . "," .
+                                json_encode($milestone2->startDate) . "," .
+                                json_encode($milestone2->endDate) . "," .
+                                json_encode($isAchieved ? 'completed' : ($isInProgress ? 'in-progress' : 'pending')) . "," .
+                                json_encode($period) .
+                            ")";
+                            $bgColor2 = $isAchieved ? 'bg-primary-500' : ($isInProgress ? 'bg-secondary-500' : 'bg-gray-300');
                             $currentMarker = $isInProgress ? 'current-marker' : '';
                         @endphp
                         <div id="timeline-{{ $index }}" class="timeline-row py-2 flex items-center">
-                            <div class="timeline-bar bg-gray-200 relative w-full" onclick="{{ $onclick }}">
-                                <div class="timeline-progress {{ $bgColor }} {{ $currentMarker }}" 
+                            <div class="timeline-bar bg-gray-200 relative w-full" onclick="{{ $onclick2 }}">
+                                <div class="timeline-progress {{ $bgColor2 }} {{ $currentMarker }}" 
                                      style="width: {{ $position['width'] }}%; left: {{ $position['left'] }}%;">
                                 </div>
                             </div>

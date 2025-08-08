@@ -36,7 +36,7 @@ class UserGoalListController extends Controller
             // DD($milestones);
             $full_count = count($milestones);
             $achieved_count = 0;
-            
+
             $current_count = 0;
             $yet_count = 0;
 
@@ -61,21 +61,23 @@ class UserGoalListController extends Controller
                         $thisMonth_milestone_count++;
                 }
             }
-            $goal_endDate = Carbon::parse($milestones->last()->endDate);
-            $remain_days = Carbon::today()->diffInDays($goal_endDate);
-            array_push($goals_with_milestones, array(
-                "goal" => $goal,
-                "milestones" => $milestones,
-                "full_count" => $full_count,
-                "achieved_count" => $achieved_count,
-                "current_count" => $current_count,
-                "yet_count" => $yet_count,
-                "end_date" => $goal_endDate,
-                "remain_days" => $remain_days,
-            ));
-            if ($goal_endDate->isBetween($goal_endDate->startOfMonth(), $goal_endDate->endOfMonth()))
-                if ($milestones->last()->achieved)
-                    $thisMonth_goal_count++;
+            if (!is_null($milestones->last())) {
+                $goal_endDate = Carbon::parse($milestones->last()->endDate);
+                $remain_days = Carbon::today()->diffInDays($goal_endDate);
+                array_push($goals_with_milestones, array(
+                    "goal" => $goal,
+                    "milestones" => $milestones,
+                    "full_count" => $full_count,
+                    "achieved_count" => $achieved_count,
+                    "current_count" => $current_count,
+                    "yet_count" => $yet_count,
+                    "end_date" => $goal_endDate,
+                    "remain_days" => $remain_days,
+                ));
+                if ($goal_endDate->isBetween($goal_endDate->startOfMonth(), $goal_endDate->endOfMonth()))
+                    if ($milestones->last()->achieved)
+                        $thisMonth_goal_count++;
+            }
         }
         if ($today_achieved_count == 0) {
             $today_achieved_persent = 0;
