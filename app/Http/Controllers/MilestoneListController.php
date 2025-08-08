@@ -10,12 +10,10 @@ class MilestoneListController extends Controller
     private static function loadJson() {
         return json_decode(file_get_contents(storage_path("dataStore.json")), true)["goals"];
     }
-    private static function updateJson($json) {
-        // TODO 今後やるかも？
-    }
     public function get($goal_id)
     {
-        return view("milestoneList", ["goal" => $this::getGoal($goal_id)]);
+        $user = UserController::loadJson()[0];
+        return view("milestoneList", ["goal" => $this::getGoal($goal_id), "username" => $user["name"]]);
     }
     private static function getGoal($goal_id)
     {

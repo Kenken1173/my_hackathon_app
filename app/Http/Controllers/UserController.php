@@ -9,9 +9,6 @@ class UserController extends Controller
     public static function loadJson() {
         return json_decode(file_get_contents(storage_path("dataStore.json")), true)["users"];
     }
-    private static function updateJson($json) {
-        # TODO 今後やるかも？
-    }
     // フォーム表示
     public function index()
     {
