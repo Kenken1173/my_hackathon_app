@@ -65,8 +65,7 @@
                             {{-- <span class="text-xs text-gray-500">あと {{  }}日 </span> --}}
                         </div>
                         <h3 class="font-bold text-gray-900 text-lg mb-1 truncate">{{  $goal_with_milestone["goal"]->name }}</h3>
-                        <!-- checkしてほしい -->
-                        <p class="text-sm text-gray-600 mb-3">期限：{{ $goal_with_milestone["milestones"][0]->endDate }}</p>
+                        <p class="text-sm text-gray-600 mb-3">期限：{{ $goal_with_milestone["end_date"]->format('Y年m月d日') }}</p>
                         {{-- <p class="text-sm text-gray-600 mb-3">期限：{{ end($goal["milestones"])["endDate"] }}</p> --}}
                     </div>
                     <!-- 進捗リング -->

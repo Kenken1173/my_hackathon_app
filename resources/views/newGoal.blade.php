@@ -76,6 +76,7 @@
                         </label>
                         <textarea 
                             id="goalDescription" 
+                            name="goalDescription"
                             rows="4"
                             class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none input-focus transition-all duration-200 resize-none"
                             placeholder="目標の詳細や理由を書いてください（任意）"
@@ -89,6 +90,7 @@
                         <input 
                             type="date" 
                             id="goalDeadline" 
+                            name="goalDeadline"
                             class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none input-focus transition-all duration-200"
                             required
                         >
