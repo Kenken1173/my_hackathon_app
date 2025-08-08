@@ -72,16 +72,22 @@ body { font-family: 'Noto Sans JP', sans-serif; }
             <p class="text-sm text-gray-600">アカウントにサインインしてください</p>
         </div>
 
-        <form class="space-y-6">
+        <form class="space-y-6" method="POST" action="{{ route('login') }}">
+            @csrf
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">メールアドレス</label>
                 <input 
-                    type="email" 
+                    type="email"
+                    name="email"
                     id="email" 
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none input-focus transition-all duration-200"
                     placeholder="example@email.com"
+                    value="{{ old('email') }}"
                     required
                 >
+                @error('email')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                @enderror
             </div>
             
             <div>
@@ -89,6 +95,7 @@ body { font-family: 'Noto Sans JP', sans-serif; }
                 <div class="relative">
                     <input 
                         type="password" 
+                        name="password"
                         id="password" 
                         class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none input-focus transition-all duration-200 pr-12"
                         placeholder="••••••••"
@@ -101,14 +108,19 @@ body { font-family: 'Noto Sans JP', sans-serif; }
                         </svg>
                     </button>
                 </div>
+                @error('password')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="flex items-center justify-between">
                 <label class="flex items-center">
-                    <input type="checkbox" class="w-4 h-4 text-primary-500 rounded border-gray-300 focus:ring-primary-100">
+                    <input name="remember" type="checkbox" class="w-4 h-4 text-primary-500 rounded border-gray-300 focus:ring-primary-100">
                     <span class="ml-2 text-sm text-gray-600">ログイン状態を保持</span>
                 </label>
-                <a href="#" class="text-sm text-primary-600 hover:text-primary-700 transition-colors">パスワードを忘れた？</a>
+                @if (Route::has('password.request'))
+                <a href="{{ route('password.request') }}" class="text-sm text-primary-600 hover:text-primary-700 transition-colors">パスワードを忘れた？</a>
+                @endif
             </div>
 
             <button 

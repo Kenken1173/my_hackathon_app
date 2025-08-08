@@ -1,9 +1,8 @@
 @php
     use Carbon\Carbon;
     
-    $milestones;
-    $startDate = Carbon::parse($milestones->first()->startDate);
-    $endDate = Carbon::parse($milestones->last()->endDate);
+    $startDate = $milestones->count() ? Carbon::parse($milestones->first()->startDate) : null;
+    $endDate = $milestones->count() ? Carbon::parse($milestones->last()->endDate) : null;
     
     $totalDays = $startDate && $endDate ? $startDate->diffInDays($endDate) : 1;
     $today = Carbon::today();
@@ -290,7 +289,9 @@
                 </div>
 
                 <!-- 現在日マーカー -->
+                @if($startDate && $endDate)
                 <div class="current-date-marker" style="left: {{ $todayPosition }}%"></div>
+                @endif
 
                 <!-- タイムラインバー -->
                 <div class="px-4 py-8">
