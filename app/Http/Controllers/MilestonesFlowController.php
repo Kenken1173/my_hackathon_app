@@ -4,27 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\Goal;
 use App\Models\Milestone;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class MilestonesFlowController extends Controller
 {
     public function get($goal_id)
     {
-        $user = User::find(2); // TODO 定数ではなくする
-        // $goal = Goal::where("user_id", $user->id)->where("id", $goal_id)->first(); // こっちのほうが適切
-        $goal = Goal::where("id", $goal_id)->first();
-        $milestones = Milestone::where("goal_id", $goal->id)->get();
-        // DD($goal);
-        // if (!$goal) {
-        //     return view('welcome');
-        // }
-        
+        $user = auth()->user();
+        if (! $user) {
+            return redirect()->route('login');
+        }
+
+        $goal = Goal::where('id', $goal_id)->where('user_id', $user->id)->first();
+        if (! $goal) {
+            abort(404);
+        }
+
+        $milestones = Milestone::where('goal_id', $goal->id)->get();
+
         return view('milestonesFlow', [
-            'goal' => $goal,
+            'goal' => [
+                'name' => $goal->name,
+                'milestones' => $milestones->map(function ($m) {
+                    return [
+                        'name' => $m->name,
+                        'description' => $m->description,
+                        'startDate' => $m->startDate,
+                        'endDate' => $m->endDate,
+                        'achieved' => (bool) $m->achieved,
+                    ];
+                })->toArray(),
+            ],
             'milestones' => $milestones,
-            "username" => $user->name
+            'username' => $user->name,
         ]);
     }
 }

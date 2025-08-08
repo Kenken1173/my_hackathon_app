@@ -22,7 +22,10 @@ class UserGoalListController extends Controller
     public function index()
     {
         $goals_with_milestones = array();
-        $user = User::find(4); // TODO 定数ではなくする
+        $user = auth()->user();
+        if (!$user) {
+            return redirect()->route('login');
+        }
         $goals = Goal::where("user_id", $user->id)->get();
         $today_full_count = 0;
         $today_achieved_count = 0;
