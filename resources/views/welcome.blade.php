@@ -13,17 +13,17 @@
             <!-- 今日のサマリー -->
             <div class="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-white/50">
                 <div class="flex items-center justify-between text-sm">
-                    <span class="text-gray-600">今日のタスク</span>
-                    <span class="font-semibold text-primary-600">2件完了</span>
+                    <span class="text-gray-600">今日のマイルストーン</span>
+                    <span class="font-semibold text-primary-600">{{ $today_achieved_count }}件完了</span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
-                    <div class="bg-primary-500 h-1.5 rounded-full" style="width: 75%"></div>
+                    <div class="bg-primary-500 h-1.5 rounded-full" style={{ "width:$today_achieved_persent%" }}></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- フィルター -->
+    {{-- <!-- フィルター -->
     <div class="flex items-center space-x-2 mb-6 overflow-x-auto">
         <button
             class="filter-btn active px-4 py-2 bg-primary-500 text-white text-sm font-semibold rounded-full whitespace-nowrap transition-colors"
@@ -45,7 +45,7 @@
             data-filter="overdue">
             期限切れ
         </button>
-    </div>
+    </div> --}}
 
     <!-- 目標リスト -->
     <div class="space-y-4" id="goalsList">
@@ -53,7 +53,7 @@
             // var_dump($goals[0]);
             // echo $goals->name;
         @endphp
-        @foreach ($goals_with_milestone as $goal_with_count)
+        @foreach ($goals_with_milestones as $goal_with_milestone)
             <!-- アクティブな目標1 -->
             <div class="goal-card bg-white rounded-xl p-4 shadow-sm border border-gray-100" data-status="active"
                 onclick="window.location.href='milestone-flow.html'">
@@ -61,33 +61,33 @@
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center mb-2">
                             <span class="category-badge category-study mr-2">学習</span>
-                            <span class="text-xs text-gray-500">あと 28日 </span>
+                            <span class="text-xs text-gray-500">あと {{ $goal_with_milestone["remain_days"] }} 日 </span>
                             {{-- <span class="text-xs text-gray-500">あと {{  }}日 </span> --}}
                         </div>
-                        <h3 class="font-bold text-gray-900 text-lg mb-1 truncate">{{  $goal_with_count[0]->name }}</h3>
+                        <h3 class="font-bold text-gray-900 text-lg mb-1 truncate">{{  $goal_with_milestone["goal"]->name }}</h3>
                         <!-- checkしてほしい -->
-                        <p class="text-sm text-gray-600 mb-3">期限：#TODO 期限</p>
+                        <p class="text-sm text-gray-600 mb-3">期限：{{ $goal_with_milestone["milestones"][0]->endDate }}</p>
                         {{-- <p class="text-sm text-gray-600 mb-3">期限：{{ end($goal["milestones"])["endDate"] }}</p> --}}
                     </div>
                     <!-- 進捗リング -->
                     <div class="relative w-16 h-16 ml-4">
                         <svg class="progress-ring w-16 h-16">
                             <circle cx="32" cy="32" r="28" stroke="#E5E7EB" stroke-width="4" fill="none" />
-                            @if ($goal_with_count[2] == 0 || $goal_with_count[1] == 0)
+                            @if ($goal_with_milestone["full_count"] == 0 || $goal_with_milestone["achieved_count"] == 0)
                             <circle class="progress-ring-circle" cx="32" cy="32" r="28" stroke="#22C55E" stroke-width="4"
                             fill="none" stroke-dasharray="{{ 0 }}, 1000" />
                             @else
                             <circle class="progress-ring-circle" cx="32" cy="32" r="28" stroke="#22C55E" stroke-width="4"
-                            fill="none" stroke-dasharray="{{ $goal_with_count[2] / $goal_with_count[1] * 180}}, 1000"
+                            fill="none" stroke-dasharray="{{ $goal_with_milestone["achieved_count"] / $goal_with_milestone["full_count"] * 180}}, 1000"
                             />
                             @endif
                         </svg>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            @if ($goal_with_count[2] == 0 || $goal_with_count[1] == 0)
+                            @if ($goal_with_milestone["achieved_count"] == 0 || $goal_with_milestone["full_count"] == 0)
                             <span class="text-xs font-bold text-gray-700">0%</span>
                                 
                             @else
-                                <span class="text-xs font-bold text-gray-700">{{ $goal_with_count[2] / $goal_with_count[1] * 100 }}%</span>
+                                <span class="text-xs font-bold text-gray-700">{{ round($goal_with_milestone["achieved_count"] / $goal_with_milestone["full_count"] * 100) }}%</span>
                             @endif
                             {{-- <span class="text-xs font-bold text-gray-700">{{ 50 }}%</span> --}}
                             {{-- <span class="text-xs font-bold text-gray-700">{{ floor($goal_with_count[2]/
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div class="text-xs text-gray-500">{{ $goal_with_count[2] }}タスク中 {{ $goal_with_count[1] }} 完了</div>
+                    <div class="text-xs text-gray-500">{{ $goal_with_milestone["full_count"] }}タスク中 {{ $goal_with_milestone["achieved_count"] }} 完了</div>
                 </div>
             </div>
         @endforeach
@@ -207,19 +207,19 @@
             今月の実績
         </h3>
 
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-2 gap-4">
             <div class="text-center">
-                <div class="text-2xl font-bold text-primary-600 mb-1">1</div>
-                <div class="text-xs text-gray-600">達成した目標</div>
+                <div class="text-2xl font-bold text-primary-600 mb-1">{{$thisMonth_goal_count}}</div>
+                <div class="text-xs text-gray-600">達成したゴール</div>
             </div>
             <div class="text-center">
-                <div class="text-2xl font-bold text-secondary-600 mb-1">12</div>
-                <div class="text-xs text-gray-600">完了したタスク</div>
+                <div class="text-2xl font-bold text-secondary-600 mb-1">{{$thisMonth_milestone_count}}</div>
+                <div class="text-xs text-gray-600">完了したマイルストーン</div>
             </div>
-            <div class="text-center">
+            {{-- <div class="text-center">
                 <div class="text-2xl font-bold text-accent-600 mb-1">89</div>
                 <div class="text-xs text-gray-600">連続日数</div>
-            </div>
+            </div> --}}
         </div>
     </div>
     </div>
