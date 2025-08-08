@@ -14,6 +14,6 @@ class MilestoneSeeder extends Seeder
     public function run(): void
     {
         \DB::table("milestones")->truncate();
-        Milestone::factory(30)->create();
+        Milestone::factory(70)->create();
     }
 }

@@ -24,7 +24,7 @@ class MilestoneFactory extends Factory
             "startDate" => $startDate,
             "endDate" => $startDate,
             "achieved" => fake()->boolean(),
-            "goal_id" => fake()->numberBetween(1,10)
+            "goal_id" => fake()->numberBetween(1,20)
         ];
     }
 }

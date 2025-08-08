@@ -60,7 +60,7 @@
                 <div class="flex items-start justify-between mb-3">
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center mb-2">
-                            <span class="category-badge category-study mr-2">学習</span>
+                            <span class="category-badge category-study mr-2">{{ $goal_with_milestone["goal"]->category }}</span>
                             <span class="text-xs text-gray-500">あと {{ $goal_with_milestone["remain_days"] }} 日 </span>
                             {{-- <span class="text-xs text-gray-500">あと {{  }}日 </span> --}}
                         </div>
