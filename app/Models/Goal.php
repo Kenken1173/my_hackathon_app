@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Goal extends Model
 {
+    protected $fillable = [
+        "user_id",
+        "name",
+        "category"
+    ];
     use HasFactory;
     //
 }

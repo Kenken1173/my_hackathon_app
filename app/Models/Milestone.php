@@ -8,5 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Milestone extends Model
 {
     use HasFactory;
-    //
+    
+    protected $fillable = [
+        'goal_id',
+        'name',
+        'description',
+        'startDate',
+        'endDate',
+        'achieved'
+    ];
 }

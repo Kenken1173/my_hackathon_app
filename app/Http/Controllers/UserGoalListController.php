@@ -9,7 +9,7 @@ use App\Models\Milestone;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpParser\Node\NullableType;
-
+use Carbon\CarbonImmutable;
 
 // ユーザーのゴールの一覧画面
 class UserGoalListController extends Controller
@@ -62,7 +62,7 @@ class UserGoalListController extends Controller
                 }
             }
             if (!is_null($milestones->last())) {
-                $goal_endDate = Carbon::parse($milestones->last()->endDate);
+                $goal_endDate = CarbonImmutable::parse($milestones->last()->endDate);
                 $remain_days = Carbon::today()->diffInDays($goal_endDate);
                 array_push($goals_with_milestones, array(
                     "goal" => $goal,
