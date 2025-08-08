@@ -17,12 +17,12 @@ class MilestoneFactory extends Factory
      */
     public function definition(): array
     {
-        $startDate = Carbon::today()->addDays(rand(1, 60));
+        $startDate = Carbon::today()->addDays(rand(0, 60));
         return [
             "name" => fake()->word(),
-            "description" => fake()->paragraph(),
+            "description" => fake()->paragraph(5),
             "startDate" => $startDate,
-            "endDate" => $startDate,
+            "endDate" => $startDate->addDays(rand(1,4)),
             "achieved" => fake()->boolean(),
             "goal_id" => fake()->numberBetween(1,20)
         ];
