@@ -46,7 +46,7 @@
     $monthHeaders = generateMonthHeaders($startDate, $endDate);
 @endphp
 
-<x-layout :username=$username title="wbs">
+<x-layout :username=$username title="wbs" nav="wbs">
      <style>
             .timeline-bar {
                 position: relative;

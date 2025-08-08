@@ -10,14 +10,16 @@ class Layout extends Component
 {
     public $username;
     public $title;
+    public $nav;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($username = null, $title = null)
+    public function __construct($username = null, $title = null, $nav = null)
     {
         $this->username = $username;
         $this->title = $title;
+        $this->nav = $nav;
     }
 
     /**
