@@ -33,11 +33,20 @@ class UserGoalListController extends Controller
             // DD($milestones);
             $full_count = count($milestones);
             $achieved_count = 0;
+            
+            $current_count = 0;
+            $yet_count = 0;
+
             foreach ($milestones as $milestone) {
                 if ($milestone->achieved) {
                     $achieved_count++;
                 }
+                $milestone_startDate = Carbon::parse($milestone->startDate);
                 $milestone_endDate = Carbon::parse($milestone->endDate);
+                if (Carbon::today()->isBetween($milestone_startDate, $milestone_endDate))
+                    $current_count++;
+                else if (Carbon::today()->isBefore($milestone_startDate))
+                    $yet_count++;
                 if ($milestone_endDate->isToday()) {
                     $today_full_count++;
                     if ($milestone->achieved) {
@@ -56,6 +65,8 @@ class UserGoalListController extends Controller
                 "milestones" => $milestones,
                 "full_count" => $full_count,
                 "achieved_count" => $achieved_count,
+                "current_count" => $current_count,
+                "yet_count" => $yet_count,
                 "end_date" => $goal_endDate,
                 "remain_days" => $remain_days,
             ));

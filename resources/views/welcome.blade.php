@@ -99,13 +99,13 @@
                 <div class="flex items-center justify-between">
                     <div class="flex -space-x-2">
                         <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                            <span class="text-xs font-semibold text-primary-600">3</span>
+                            <span class="text-xs font-semibold text-primary-600">{{$goal_with_milestone["achieved_count"]}}</span>
                         </div>
                         <div class="w-8 h-8 bg-secondary-100 rounded-full flex items-center justify-center">
-                            <span class="text-xs font-semibold text-secondary-600">1</span>
+                            <span class="text-xs font-semibold text-secondary-600">{{$goal_with_milestone["current_count"]}}</span>
                         </div>
                         <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                            <span class="text-xs font-semibold text-gray-500">2</span>
+                            <span class="text-xs font-semibold text-gray-500">{{$goal_with_milestone["yet_count"]}}</span>
                         </div>
                     </div>
 
