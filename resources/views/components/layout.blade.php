@@ -181,6 +181,11 @@
                     pending: { color: 'gray', text: '未着手', bgColor: 'bg-gray-100', textColor: 'text-gray-600' }
                 };
 
+                console.log({
+                    name, description, startDate, endDate, status, period
+                });
+
+
                 const statusInfo = statusConfig[status] || statusConfig.pending;
 
                 // 基本的なコンテンツ
