@@ -383,17 +383,3 @@ function showSuccessMessage() {
 </script>
 </body>
 </x-layout>
-
-{{-- <x-layout :username=$username title="test">
-    <p>
-        テスト
-    </p>
-
-    {{-- ページ遷移の処理を書く --}}
-    {{-- <button onclick="redirectToWelcomeView()" class="btn btn-primary">welcomeViewへ移動</button>
-    <script>
-        function redirectToWelcomeView() {
-            window.location.href = "/";
-        }
-</script>
-</x-layout>--}}
