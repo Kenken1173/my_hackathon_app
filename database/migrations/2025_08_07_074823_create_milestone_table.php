@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('milestones', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("category");
             $table->text("name");
             $table->text("description");
             $table->datetime("startDate");

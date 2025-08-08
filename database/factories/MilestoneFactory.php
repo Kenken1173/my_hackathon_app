@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,12 +17,12 @@ class MilestoneFactory extends Factory
      */
     public function definition(): array
     {
+        $startDate = Carbon::today()->addDays(rand(1, 60));
         return [
-            "category" => ["a", "b", "c", "d"][rand(0, 3)],
             "name" => fake()->word(),
             "description" => fake()->paragraph(),
-            "startDate" => fake()->date(),
-            "endDate" => fake()->date(),
+            "startDate" => $startDate,
+            "endDate" => $startDate,
             "achieved" => fake()->boolean(),
             "goal_id" => fake()->numberBetween(1,10)
         ];

@@ -18,6 +18,7 @@ class GoalFactory extends Factory
     {
         return [
             'user_id' => fake()->numberBetween(1,4),
+            "category" => ["a", "b", "c", "d"][rand(0, 3)],
             'name' => fake()->word()
         ];
     }
