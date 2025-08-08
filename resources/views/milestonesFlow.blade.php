@@ -1,5 +1,6 @@
 @php
     use Carbon\Carbon;
+    use Carbon\CarbonImmutable;
     
     $id = $goal['id'];
     
@@ -197,8 +198,8 @@
             @foreach($milestones as $index => $milestone)
             @php
                 $isAchieved = $milestone['achieved'] ?? false;
-                $start = Carbon::parse($milestone['startDate']);
-                $end = Carbon::parse($milestone['endDate']);
+                $start = CarbonImmutable::parse($milestone['startDate'])->startOfDay();
+                $end = CarbonImmutable::parse($milestone['endDate'])->startOfDay();
                 $isInProgress = !$isAchieved && $today->between($start, $end);
                 $isFuture = $today->lt($start);
                 
