@@ -56,7 +56,7 @@
         @foreach ($goals_with_milestones as $goal_with_milestone)
             <!-- アクティブな目標1 -->
             <div class="goal-card bg-white rounded-xl p-4 shadow-sm border border-gray-100" data-status="active"
-                onclick="window.location.href='milestone-flow.html'">
+                onclick="window.location.href='/milestones-wbs/{{ $goal_with_milestone["goal"]->id }}'">
                 <div class="flex items-start justify-between mb-3">
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center mb-2">
