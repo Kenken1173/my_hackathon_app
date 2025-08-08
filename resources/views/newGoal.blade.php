@@ -166,6 +166,11 @@
                         <div class="text-sm font-medium text-gray-700 mb-1">目標タイトル</div>
                         <div id="confirmTitle" class="text-gray-900"></div>
                     </div>
+
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="text-sm font-medium text-gray-700 mb-1">詳細説明</div>
+                        <div id="confirmDescription" class="text-gray-900"></div>
+                    </div>
                     
                     <div class="p-4 bg-gray-50 rounded-lg">
                         <div class="text-sm font-medium text-gray-700 mb-1">カテゴリー</div>
@@ -347,6 +352,7 @@ function validateCurrentStep() {
 
 function updateConfirmation() {
     const title = document.getElementById('goalTitle').value;
+    const description = document.getElementById('goalDescription').value;
     const category = document.getElementById('selectedCategory').value;
     const deadline = document.getElementById('goalDeadline').value;
     
@@ -358,6 +364,7 @@ function updateConfirmation() {
     };
     
     document.getElementById('confirmTitle').textContent = title;
+    document.getElementById('confirmDescription').textContent = description || 'なし';
     document.getElementById('confirmCategory').textContent = categoryNames[category];
     document.getElementById('confirmDeadline').textContent = new Date(deadline).toLocaleDateString('ja-JP');
 }
