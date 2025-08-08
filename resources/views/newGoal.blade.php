@@ -369,7 +369,7 @@ function showError(message) {
 
 function showSuccessMessage() {
     // 成功メッセージ表示（実際の実装では適切なUIで表示）
-    alert('目標が作成されました！マイルストーンの設定に進みます。');
+    alert('目標が作成されました！マイルストーン一覧に戻ります。');
     // 次のページにリダイレクト
     window.location.href = "/"
 }
