@@ -12,14 +12,17 @@ class Layout extends Component
     public $title;
     public $nav;
 
+    public bool $footerFlag;
+
     /**
      * Create a new component instance.
      */
-    public function __construct($username = null, $title = null, $nav = null)
+    public function __construct($username = null, $title = null, $nav = null, bool $footerFlag = true)
     {
         $this->username = $username;
         $this->title = $title;
         $this->nav = $nav;
+        $this->footerFlag = $footerFlag;
     }
 
     /**

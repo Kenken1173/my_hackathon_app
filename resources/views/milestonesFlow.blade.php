@@ -3,9 +3,6 @@
     
     $id = $goal['id'];
     
-    // DD($milestones);
-    // $startDate = null;
-    // $endDate = null;
     $endDate = Carbon::parse($milestones->last()->endDate);
     
     $completedCount = $milestones->where('achieved', true)->count();
@@ -155,7 +152,7 @@
 
     <!-- 目標タイトル -->
     <div class="bg-white rounded-xl p-4 mb-4 shadow-sm border border-gray-100">
-        <h2 class="text-lg font-bold text-gray-900 mb-1">{{ $goal->name }}</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-1">{{ $goal['name'] }}</h2>
         @if($endDate)
         <p class="text-sm text-gray-500">期限{{ $endDate->format('Y年m月d日') }}</p>
         @endif
@@ -196,7 +193,7 @@
             ステップフロー
         </h3>
 
-        @if(count($milestones) > 0)
+        @if($milestones->count() > 0)
             @foreach($milestones as $index => $milestone)
             @php
                 $isAchieved = $milestone['achieved'] ?? false;
