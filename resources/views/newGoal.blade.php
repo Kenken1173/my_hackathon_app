@@ -45,7 +45,8 @@
     </div>
 
     <!-- フォーム -->
-    <form id="goalForm" class="space-y-6">
+    <form id="goalForm" action="{{ route('goal.new') }}" method="POST" class="space-y-6">
+        @csrf
         <!-- ステップ1: 基本情報 -->
         <div id="step1" class="step-content">
             <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
@@ -62,6 +63,7 @@
                         <input 
                             type="text" 
                             id="goalTitle" 
+                            name="goalTitle" 
                             class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none input-focus transition-all duration-200"
                             placeholder="例：TOEICで800点を取る"
                             required
@@ -319,12 +321,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // フォーム送信
-    document.getElementById('goalForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+    // document.getElementById('goalForm').addEventListener('submit', function(e) {
+    //     e.preventDefault();
         
-        // 成功メッセージ表示
-        showSuccessMessage();
-    });
+    //     document.getElementById('goalForm').submit();
+
+    //     // 成功メッセージ表示
+    //     showSuccessMessage();
+    // });
 });
 
 function validateCurrentStep() {

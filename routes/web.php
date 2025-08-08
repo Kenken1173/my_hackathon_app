@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MilestonesWBSController;
 use App\Http\Controllers\MilestonesFlowController;
 
+use App\Http\Controllers\NewgoalController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MilestoneListController;
 use App\Http\Controllers\UserGoalListController;
@@ -18,8 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 // 認証必須のページ
 Route::middleware('auth')->group(function () {
-    Route::get('/', [UserGoalListController::class, 'index']); // ユーザーごとのゴール一覧画面
-    Route::get('/list/{goal_id}', [MilestoneListController::class, 'get']); // ゴールごとのマイルストーン一覧
+    Route::get('/', [UserGoalListController::class, 'index'])->name("home"); // ユーザーごとのゴール一覧画面
+    Route::post("/new", [NewgoalController::class, "new"])->name("goal.new");
+    Route::get("/new", [NewgoalController::class, "index"]);
     Route::get('/milestones-wbs/{goal_id}', [MilestonesWBSController::class, 'get']);
     Route::get('/milestones-flow/{goal_id}', [MilestonesFlowController::class, 'get']);
 });
