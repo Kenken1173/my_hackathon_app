@@ -2,10 +2,12 @@
     use Carbon\Carbon;
     
     $milestones;
-    $startDate = Carbon::parse($milestones->first()->startDate);
-    $endDate = Carbon::parse($milestones->last()->endDate);
+    if (!isset($startDate) || !isset($endDate)) {
+        $startDate = $milestones->isNotEmpty() ? Carbon::parse($milestones->min('startDate')) : null;
+        $endDate = $milestones->isNotEmpty() ? Carbon::parse($milestones->max('endDate')) : null;
+    }
     
-    $totalDays = $startDate->diffInDays($endDate) ? $startDate->diffInDays($endDate) : 1;
+    $totalDays = ($startDate && $endDate) ? max(1, $startDate->diffInDays($endDate) + 1) : 1;
     $today = Carbon::today();
     // DD($startDate, $endDate, $totalDays);
     $todayPosition = $startDate ? max(0, min(100, ($startDate->diffInDays($today) / $totalDays) * 100)) : 50;
@@ -33,14 +35,21 @@
     }
     
     function calculateTimelinePosition($start, $end, $projectStart, $totalDays) {
-        if (!$projectStart || $totalDays <= 0) return ['left' => 0, 'width' => 0];
-        
-        $startDays = $projectStart->diffInDays(Carbon::parse($start));
-        $durationDays = Carbon::parse($start)->diffInDays(Carbon::parse($end)) + 1;
-        
-        $leftPercent = max(0, ($startDays / $totalDays) * 100);
-        $widthPercent = min(100 - $leftPercent, ($durationDays / $totalDays) * 100);
-        
+        if (!$start || !$end || !$projectStart || $totalDays <= 0) return ['left' => 0, 'width' => 0];
+        $projectStartC = $projectStart instanceof Carbon ? $projectStart : Carbon::parse($projectStart);
+        $startC = $start instanceof Carbon ? $start : Carbon::parse($start);
+        $endC = $end instanceof Carbon ? $end : Carbon::parse($end);
+        if ($endC->lt($startC)) { [$startC, $endC] = [$endC, $startC]; }
+        $projectEnd = $projectStartC->copy()->addDays(max(0, $totalDays - 1));
+        $visibleStart = $startC->lt($projectStartC) ? $projectStartC->copy() : $startC->copy();
+        $visibleEnd = $endC->gt($projectEnd) ? $projectEnd->copy() : $endC->copy();
+        if ($visibleEnd->lt($projectStartC) || $visibleStart->gt($projectEnd)) return ['left' => 0, 'width' => 0];
+        $startOffsetDays = $projectStartC->diffInDays($visibleStart, false);
+        $leftPercent = $startOffsetDays <= 0 ? 0 : ($startOffsetDays / max(1, $totalDays - 1)) * 100;
+        $leftPercent = max(0, min(100, $leftPercent));
+        $durationDays = $visibleStart->diffInDays($visibleEnd) + 1;
+        $widthPercent = ($durationDays / max(1, $totalDays)) * 100;
+        $widthPercent = max(0, min(100 - $leftPercent, $widthPercent));
         return ['left' => $leftPercent, 'width' => $widthPercent];
     }
     
@@ -298,7 +307,7 @@
                     @if(count($milestones) > 0)
                         @foreach($milestones as $index => $milestone2)
                         @php
-                            $position = calculateTimelinePosition($milestone2['startDate'], $milestone2['endDate'], $milestone2->startDate, $totalDays);
+                            $position = calculateTimelinePosition($milestone2['startDate'], $milestone2['endDate'], $startDate, $totalDays);
                             
                             $isAchieved = $milestone2->achieved ?? false;
                             $start = Carbon::parse($milestone2->startDate);

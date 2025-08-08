@@ -17,14 +17,18 @@ class MilestonesWBSController extends Controller
         $user = User::find(1); // TODO 定数ではなくする
         // $goal = Goal::where("user_id", $user->id)->where("id", $goal_id)->get(); // こっちのほうが適切
         $goal = Goal::where("id", $goal_id)->first();
-        $milestones = Milestone::where("goal_id", $goal->id)->get();
-    
-        $maxEndDate = Carbon::parse($milestones->max('endDate'));
+        $milestones = Milestone::where("goal_id", $goal->id)
+            ->orderBy('startDate')
+            ->get();
+
+        $startDate = $milestones->isNotEmpty() ? Carbon::parse($milestones->min('startDate')) : null;
+        $endDate = $milestones->isNotEmpty() ? Carbon::parse($milestones->max('endDate')) : null;
         return view("milestonesWBS", [
             "goal" => $goal,
             "milestones" => $milestones,
             "username" => $user->name,
-            "maxEndDate" => $maxEndDate
+            "startDate" => $startDate,
+            "endDate" => $endDate
         ]);
     }
 }
