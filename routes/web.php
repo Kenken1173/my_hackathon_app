@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\MileStoneTableController;
 use App\Http\Controllers\MilestonesWBSController;
+use App\Http\Controllers\MilestonesFlowController;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MilestoneListController;
@@ -13,4 +14,5 @@ Route::get('/', [UserGoalListController::class, "index"]); // ユーザーごと
 Route::get('/list/{goal_id}', [MilestoneListController::class, "get"]); // ユーザーのゴールごとのマイルストーン一覧画面
 Route::get('/table/{goal_id}', [MileStoneTableController::class, "get"]); // ユーザーのゴールごとのマイルストーン一覧画面
 Route::get('/milestones-wbs/{goal_id}', [MilestonesWBSController::class, "get"]);
+Route::get('/milestones-flow/{goal_id}', [MilestonesFlowController::class, "get"]);
 
