@@ -70,6 +70,9 @@ $ php artisan key:generate
 # マイグレーションの実行（すべてyesでOK）
 $ php artisan migrate
 
+# フロントエンド依存関係を展開
+$ npm install
+
 # アプリケーションの起動
 # Let's get startedと表示が出ればOK
 $ php artisan serve
